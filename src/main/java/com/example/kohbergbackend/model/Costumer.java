@@ -4,7 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
 
@@ -12,17 +16,15 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Entity
-public class Sale {
+public class Costumer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int saleID;
-    private int customerID;
-    private LocalDate saleDate;
-    private String orderValue;
-
+    private int costumerID;
+    private String name;
+    private LocalDate birthday;
+    private LocalDate creationYear;
 
 
 

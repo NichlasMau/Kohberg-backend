@@ -61,12 +61,22 @@ public class CostumerService {
      * @param costumerId The unique identifier of the Costumer to update.
      * @return The updated Costumer entity, or null if the Costumer was not found.
      */
-    public Costumer updateCostumer(int costumerId) {
-        if (costumerRepository.existsById(costumerId)) {
-            Costumer updatedCostumer = costumerRepository.getById(costumerId);
-            return costumerRepository.save(updatedCostumer);
-        }
-        return null;
+    public Costumer updateCostumer(int costumerId, Costumer updatedCostumerData) {
+        return costumerRepository.findById(costumerId)
+                .map(existingCostumer -> {
+                    if (updatedCostumerData.getName() != null) {
+                        existingCostumer.setName(updatedCostumerData.getName());
+                    }
+                    if (updatedCostumerData.getBirthday() != null) {
+                        existingCostumer.setBirthday(updatedCostumerData.getBirthday());
+                    }
+                    if (updatedCostumerData.getCreationYear() != null) {
+                        existingCostumer.setCreationYear(updatedCostumerData.getCreationYear());
+                    }
+
+                    return costumerRepository.save(existingCostumer);
+                })
+                .orElse(null);
     }
 
     /**

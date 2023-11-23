@@ -21,7 +21,7 @@ public class Sale {
     private int saleID;
     private int customerID;
     private LocalDate saleDate;
-    private String orderValue;
+    private String product;
 
 
 

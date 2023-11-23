@@ -25,6 +25,13 @@ public class SalespersonService {
     }
 
 
+    /**
+     * Retrieves a salesperson DTO by their unique identifier (ID).
+     *
+     * @param id The ID of the salesperson to retrieve.
+     * @return The salesperson DTO if found.
+     * @throws NotFoundException if no salesperson is found with the given ID.
+     */
     public SalespersonDTO getSalespersonById(int id) {
         Optional<Salesperson> salespersonOptional = salespersonRepository.findById(id);
         if (salespersonOptional.isPresent()) {
@@ -34,6 +41,11 @@ public class SalespersonService {
         }
     }
 
+    /**
+     * Retrieves a list of all salespersons as DTOs.
+     *
+     * @return A list containing all salesperson DTOs.
+     */
     public List<SalespersonDTO> getAllSalesperson(){
         List<Salesperson> salespersons = salespersonRepository.findAll();
         return salespersons.stream()
@@ -41,6 +53,14 @@ public class SalespersonService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Updates the information of a specific salesperson based on their ID.
+     *
+     * @param id The ID of the salesperson to be updated.
+     * @param salespersonDTO The DTO containing the updated salesperson information.
+     * @return The updated salesperson DTO if the salesperson is found and updated.
+     * @throws NotFoundException if no salesperson is found with the given ID.
+     */
     public SalespersonDTO updateSalesperson(int id, SalespersonDTO salespersonDTO){
         Optional<Salesperson> existingSalesperson = salespersonRepository.findById(id);
         if (existingSalesperson.isPresent()){
@@ -53,6 +73,12 @@ public class SalespersonService {
         }
     }
 
+    /**
+     * Creates a new salesperson and returns the created salesperson as a DTO.
+     *
+     * @param salespersonDTO The DTO containing the information of the salesperson to be created.
+     * @return The created salesperson DTO.
+     */
     public SalespersonDTO createSalesperson(SalespersonDTO salespersonDTO){
         Salesperson salespersonToSave = salespersonConverter.toEntity(salespersonDTO);
         salespersonToSave.setId(0);
@@ -60,6 +86,12 @@ public class SalespersonService {
         return salespersonConverter.toDTO(savedSalesperson);
     }
 
+    /**
+     * Deletes a salesperson based on their unique identifier (ID).
+     *
+     * @param id The ID of the salesperson to be deleted.
+     * @throws NotFoundException if no salesperson is found with the given ID.
+     */
     public void deleteSalesperson(int id) {
         Optional<Salesperson> salesperson = salespersonRepository.findById(id);
         if (salesperson.isPresent()){
@@ -68,4 +100,5 @@ public class SalespersonService {
             throw new NotFoundException("Salesperson not found with id: " + id);
         }
     }
+
 }

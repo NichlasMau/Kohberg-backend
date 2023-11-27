@@ -68,6 +68,8 @@ public class ReminderService {
     //Felt 4 (Måned), Felt 5 (Dag i ugen), Felt 6 (År)
     @Scheduled(cron = "0 0 12 * * ?") // Eksempel: Udføres hver dag kl. 12:00
     public void sendReminderEmails() {
+
+
         // Implementer logikken for at sende påmindelser til kundernes e-mails
         // Hent påmindelser, der har en deadline i dag, og send e-mails
         // Brug JavaMailSender eller et tredjepartsbibliotek til at sende e-mails

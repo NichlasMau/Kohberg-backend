@@ -12,32 +12,21 @@ import java.util.Locale;
 @Setter
 @NoArgsConstructor
 @ToString
+public class Salesperson extends User{
+    private int customer;
 
-public class Salesperson {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
-    private LocalDate birthday;
-    private int customers;
-    private String email;
-    private String password;
-
-
-    public Salesperson(int id, String name, LocalDate birthday, int customers, String email) {
-        this.id = id;
-        this.name = name;
-        this.birthday = birthday;
-        this.customers = customers;
-        this.email = email;
+    public Salesperson(int id, String name, String role, LocalDate birthday, int customer, String email) {
+        super(id, name, "salesperson", role, birthday, email);
+        this.customer = customer;
     }
+
+
 
     @Transient
     public String getFormattedReminderDate() {
         // Vælg det ønskede format (fx. "dd.MM.yyyy")
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", new Locale("da", "DK"));
         // Formatér LocalDate til en streng
-        return birthday.format(formatter);
+        return getBirthday().format(formatter);
     }
-
 }

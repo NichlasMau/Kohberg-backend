@@ -1,7 +1,9 @@
 package com.example.kohbergbackend.dto;
 
 import com.example.kohbergbackend.model.Sale;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SaleConverter {
 
     public Sale toEntity(SaleDTO saleDTO){

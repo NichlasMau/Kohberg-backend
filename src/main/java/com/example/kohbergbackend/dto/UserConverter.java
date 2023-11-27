@@ -13,7 +13,8 @@ public class UserConverter {
                 userDTO.username(),
                 userDTO.role(),
                 userDTO.birthday(),
-                userDTO.email()
+                userDTO.email(),
+                userDTO.creationYear()
         );
     }
 
@@ -23,7 +24,8 @@ public class UserConverter {
                 user.getUsername(),
                 user.getRole(),
                 user.getBirthday(),
-                user.getEmail()
+                user.getEmail(),
+                user.getCreationYear()
         );
     }
 }

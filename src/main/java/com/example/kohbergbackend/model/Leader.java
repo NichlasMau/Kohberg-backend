@@ -16,15 +16,17 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Costumer extends User {
+public class Leader extends User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int costumerID;
-    private String name;
-    private LocalDate birthday;
+    private int leaderID;
+    private String position;
+    private LocalDate hireDate;
 
-
-
-
+    public Leader(int id, String name, String role, LocalDate birthday, String email, String position, LocalDate hireDate) {
+        super(id, name, role, birthday, email);
+        this.position = position;
+        this.hireDate = hireDate;
+    }
 }

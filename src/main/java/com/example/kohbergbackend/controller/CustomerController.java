@@ -1,7 +1,8 @@
 package com.example.kohbergbackend.controller;
 
 import com.example.kohbergbackend.model.Costumer;
-import com.example.kohbergbackend.service.CostumerService;
+import com.example.kohbergbackend.model.User;
+import com.example.kohbergbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,35 +16,35 @@ import java.util.Optional;
 @RequestMapping("/costumer")
 public class CustomerController {
 
-    private CostumerService costumerService;
+    private UserService userService;
 
     @Autowired
-    public CustomerController(CostumerService costumerService){
-        this.costumerService = costumerService;
+    public CustomerController(UserService userService){
+        this.userService = userService;
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Costumer> createCostumer(@RequestBody Costumer costumer) {
-        Costumer createdCostumer = costumerService.createCostumer(costumer);
-        return new ResponseEntity<>(createdCostumer, HttpStatus.CREATED);
+    public ResponseEntity<User> createCostumer(@RequestBody User user) {
+        User createdUser = userService.createUser(user);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Costumer>> getAllCostumers() {
-        List<Costumer> costumers = costumerService.getAllCostumers();
-        return new ResponseEntity<>(costumers, HttpStatus.OK);
+    public ResponseEntity<List<User>> getAllCostumers() {
+        List<User> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/{costumerId}")
-    public ResponseEntity<Costumer> getCostumerById(@PathVariable int costumerId) {
-        Optional<Costumer> costumer = costumerService.getCostumerById(costumerId);
-        return costumer.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getCostumerById(@PathVariable int userId) {
+        Optional<User> user = userService.getUserById(userId);
+        return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/{costumerId}")
-    public ResponseEntity<Costumer> updateCostumer(@PathVariable int costumerId, @RequestBody Costumer updatedCostumerData) {
-        Costumer updatedCostumer = costumerService.updateCostumer(costumerId, updatedCostumerData);
+    @PutMapping("/{userId}")
+    public ResponseEntity<User> updateCostumer(@PathVariable int userId, @RequestBody User updatedUserData) {
+        User updatedCostumer = userService.updateUser(userId, updatedUserData);
         return updatedCostumer != null ?
                 new ResponseEntity<>(updatedCostumer, HttpStatus.OK) :
                 new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -51,7 +52,7 @@ public class CustomerController {
 
     @DeleteMapping("/{costumerId}")
     public ResponseEntity<Void> deleteCostumer(@PathVariable int costumerId) {
-        costumerService.deleteCostumer(costumerId);
+        userService.deleteUser(costumerId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

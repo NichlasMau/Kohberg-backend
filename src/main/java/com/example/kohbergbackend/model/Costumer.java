@@ -23,7 +23,7 @@ public class Costumer extends User {
     private int costumerID;
     private String name;
     private LocalDate birthday;
-    private LocalDate creationYear;
+
 
 
 

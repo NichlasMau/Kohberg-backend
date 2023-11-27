@@ -3,6 +3,8 @@ package com.example.kohbergbackend.service;
 import com.example.kohbergbackend.exception.NotFoundException;
 import com.example.kohbergbackend.model.Reminder;
 import com.example.kohbergbackend.repository.ReminderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +15,7 @@ public class ReminderService {
 
     private ReminderRepository reminderRepository;
 
+    @Autowired
     public ReminderService(ReminderRepository reminderRepository) {
         this.reminderRepository = reminderRepository;
     }
@@ -60,7 +63,16 @@ public class ReminderService {
         reminderRepository.deleteById(id);
     }
 
-
-
+    //Reminder automatisk til kundens email på en oprettet deadline
+    //Felt 1 (Minut), Felt 2 (Time), Felt 3 (Dag i måneden)
+    //Felt 4 (Måned), Felt 5 (Dag i ugen), Felt 6 (År)
+    @Scheduled(cron = "0 0 12 * * ?") // Eksempel: Udføres hver dag kl. 12:00
+    public void sendReminderEmails() {
+        // Implementer logikken for at sende påmindelser til kundernes e-mails
+        // Hent påmindelser, der har en deadline i dag, og send e-mails
+        // Brug JavaMailSender eller et tredjepartsbibliotek til at sende e-mails
+        // Eksempel:
+        // emailSender.sendEmail(customer.getEmail(), "Påmindelse", "Din deadline er i dag!");
+    }
 }
 

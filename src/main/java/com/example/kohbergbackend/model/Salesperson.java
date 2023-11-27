@@ -6,8 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
-import javax.annotation.processing.Generated;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -20,17 +19,18 @@ public class Salesperson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private Date birthday;
+    private LocalDate birthday;
     private int customers;
     private String email;
     private String password;
 
 
-    public Salesperson(int id, String name, Date birthday, int customers, String email) {
+    public Salesperson(int id, String name, LocalDate birthday, int customers, String email) {
         this.id = id;
         this.name = name;
         this.birthday = birthday;
         this.customers = customers;
         this.email = email;
     }
+
 }

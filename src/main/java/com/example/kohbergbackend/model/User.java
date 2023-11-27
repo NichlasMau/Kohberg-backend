@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 @Getter
@@ -27,6 +28,13 @@ public class User {
     private String password;
     private String role;
     private LocalDate birthday;
+    private String email;
 
-
+    public User(int userID, String username, String role, LocalDate birthday, String email) {
+        this.userID = userID;
+        this.username = username;
+        this.role = role;
+        this.birthday = birthday;
+        this.email = email;
+    }
 }

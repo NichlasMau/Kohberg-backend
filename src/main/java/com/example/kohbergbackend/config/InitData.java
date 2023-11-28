@@ -1,5 +1,6 @@
 package com.example.kohbergbackend.config;
 
+import com.example.kohbergbackend.dto.CustomerDTO;
 import com.example.kohbergbackend.model.Customer;
 import com.example.kohbergbackend.model.User;
 import com.example.kohbergbackend.repository.UserRepository;
@@ -26,16 +27,17 @@ public class InitData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Opret en ny kunde
-        Customer newUser = new Customer();
-        newUser.setName("John Doe");
-        newUser.setBirthday(LocalDate.parse("2001-01-01"));
-        newUser.setCreationYear(LocalDate.parse("2022-01-01"));
+        CustomerDTO newUser = new CustomerDTO(
+                1,
+                "John Doe",
+                "Customer",
+                LocalDate.parse("2001-01-01"),
+                "john.doe@example.com",
+                LocalDate.parse("2022-01-01")
+        );
 
-        // Gem kunden ved hjælp af CostumerService
-        Customer createdUser = customerService.createCostumer(newUser);
-
-        //Gem den nye costumer i databasen
-        customerService.createCostumer(createdUser);
+        // Gem kunden ved hjælp af CustomerService
+        Customer createdUser = customerService.createCustomer(newUser);
 
         // Du kan gøre noget med den oprettede kunde, hvis det er nødvendigt
         System.out.println("Oprettet kunde med ID: " + createdUser.getCostumerID());

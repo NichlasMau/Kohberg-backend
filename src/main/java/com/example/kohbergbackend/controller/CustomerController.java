@@ -1,7 +1,8 @@
 package com.example.kohbergbackend.controller;
 
-import com.example.kohbergbackend.model.User;
-import com.example.kohbergbackend.service.UserService;
+import com.example.kohbergbackend.dto.CustomerDTO;
+import com.example.kohbergbackend.model.Customer;
+import com.example.kohbergbackend.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,38 +13,38 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/costumer")
+@RequestMapping("/customer")
 public class CustomerController {
 
-    private UserService userService;
+    private CustomerService customerService;
 
     @Autowired
-    public CustomerController(UserService userService){
-        this.userService = userService;
+    public CustomerController(CustomerService customerService){
+        this.customerService = customerService;
     }
 
     @PostMapping("/create")
-    public ResponseEntity<User> createCostumer(@RequestBody User user) {
-        User createdUser = userService.createUser(user);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    public ResponseEntity<Customer> createCostumer(@RequestBody CustomerDTO customer) {
+        Customer createdCustomer = customerService.createCustomer(customer);
+        return new ResponseEntity<>(createdCustomer, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<User>> getAllCostumers() {
-        List<User> users = userService.getAllUsers();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+    public ResponseEntity<List<CustomerDTO>> getAllCostumers() {
+        List<CustomerDTO> customers = customerService.getAllCustomers();
+        return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<User> getCostumerById(@PathVariable int userId) {
-        Optional<User> user = userService.getUserById(userId);
+    public ResponseEntity<CustomerDTO> getCostumerById(@PathVariable int userId) {
+        Optional<CustomerDTO> user = customerService.getCustomerById(userId);
         return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<User> updateCostumer(@PathVariable int userId, @RequestBody User updatedUserData) {
-        User updatedCostumer = userService.updateUser(userId, updatedUserData);
+    public ResponseEntity<CustomerDTO> updateCostumer(@PathVariable int userId, @RequestBody CustomerDTO updatedCustomerData) {
+        CustomerDTO updatedCostumer = customerService.updateCustomer(userId, updatedCustomerData);
         return updatedCostumer != null ?
                 new ResponseEntity<>(updatedCostumer, HttpStatus.OK) :
                 new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -51,7 +52,7 @@ public class CustomerController {
 
     @DeleteMapping("/{costumerId}")
     public ResponseEntity<Void> deleteCostumer(@PathVariable int costumerId) {
-        userService.deleteUser(costumerId);
+        customerService.deleteCustomer(costumerId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

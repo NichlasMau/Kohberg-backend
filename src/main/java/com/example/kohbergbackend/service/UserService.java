@@ -1,6 +1,7 @@
 package com.example.kohbergbackend.service;
 
-import com.example.kohbergbackend.model.Costumer;
+import com.example.kohbergbackend.exception.NotFoundException;
+import com.example.kohbergbackend.model.Customer;
 import com.example.kohbergbackend.model.Leader;
 import com.example.kohbergbackend.model.Salesperson;
 import com.example.kohbergbackend.model.User;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class UserService {
 
     private UserRepository userRepository;
+
 
     /**
      * Constructor for UserService.
@@ -52,10 +54,13 @@ public class UserService {
      * Retrieves a user by its unique identifier.
      *
      * @param userId The unique identifier of the User to retrieve.
-     * @return An Optional containing the retrieved User, or an empty Optional if not found.
+     * @return The retrieved User entity.
+     * @throws NotFoundException if the user is not found.
      */
     public Optional<User> getUserById(int userId) {
-        return userRepository.findById(userId);
+        return userRepository.findById(userId)
+                .map(Optional::of)
+                .orElseThrow(() -> new NotFoundException("User not found with id: " + userId));
     }
 
     /**
@@ -63,37 +68,42 @@ public class UserService {
      *
      * @param userId          The unique identifier of the User to update.
      * @param updatedUserData The updated User data.
-     * @return The updated User entity, or null if the User was not found.
+     * @return The updated User entity.
+     * @throws NotFoundException if the user is not found.
      */
     public User updateUser(int userId, User updatedUserData) {
         return userRepository.findById(userId)
                 .map(existingUser -> {
                     // Update user attributes based on the type of user (leader, customer, salesperson)
                     // You might want to handle this in a more generic way based on your user hierarchy
-                    existingUser.setUsername(updatedUserData.getUsername());
+                    existingUser.setName(updatedUserData.getName());
                     existingUser.setBirthday(updatedUserData.getBirthday());
 
                     // Additional attributes for specific user types
                     if (existingUser instanceof Leader) {
-                        ((Leader) existingUser).setPosition(((Leader) updatedUserData).getPosition());
                         ((Leader) existingUser).setHireDate(((Leader) updatedUserData).getHireDate());
-                    } else if (existingUser instanceof Costumer) {
-                        ((Costumer) existingUser).setCreationYear(((Costumer) updatedUserData).getCreationYear());
+                        ((Leader) existingUser).setUsername(((Leader) updatedUserData).getUsername());
+                    } else if (existingUser instanceof Customer) {
+                        ((Customer) existingUser).setCreationYear(((Customer) updatedUserData).getCreationYear());
                     } else if (existingUser instanceof Salesperson) {
-                        ((Salesperson) existingUser).setCustomer(((Salesperson) updatedUserData).getCustomer());
+                        ((Salesperson) existingUser).setCustomers(((Salesperson) updatedUserData).getCustomers());
+                        ((Salesperson) existingUser).setUsername(((Salesperson) updatedUserData).getUsername());
                     }
 
                     return userRepository.save(existingUser);
                 })
-                .orElse(null);
+                .orElseThrow(() -> new NotFoundException("User not found with id: " + userId));
     }
 
     /**
      * Deletes a user by its unique identifier.
      *
      * @param userId The unique identifier of the User to delete.
+     * @throws NotFoundException if the user is not found.
      */
     public void deleteUser(int userId) {
+        userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User not found with id: " + userId));
         userRepository.deleteById(userId);
     }
 }

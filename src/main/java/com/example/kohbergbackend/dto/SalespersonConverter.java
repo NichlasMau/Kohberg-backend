@@ -8,8 +8,9 @@ public class SalespersonConverter {
 
     public Salesperson toEntity(SalespersonDTO salespersonDTO) {
         Salesperson salesperson = new Salesperson(
-                salespersonDTO.id(),
+                salespersonDTO.userID(),
                 salespersonDTO.name(),
+                salespersonDTO.username(),
                 "salesperson", // Du kan håndtere rollen baseret på DTO, hvis det er nødvendigt
                 salespersonDTO.birthday(),
                 salespersonDTO.customers(),
@@ -22,10 +23,13 @@ public class SalespersonConverter {
     public SalespersonDTO toDTO(Salesperson salesperson) {
         SalespersonDTO salespersonDTO = new SalespersonDTO(
                 salesperson.getUserID(),
+                salesperson.getName(),
                 salesperson.getUsername(),
+                salesperson.getRole(),
                 salesperson.getBirthday(),
-                salesperson.getCustomer(),
-                salesperson.getEmail()
+                salesperson.getEmail(),
+                salesperson.getCreationYear(),
+                salesperson.getCustomers()
         );
         // Andre konverteringer, hvis nødvendigt
         return salespersonDTO;

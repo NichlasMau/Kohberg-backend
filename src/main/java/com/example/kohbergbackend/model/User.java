@@ -7,11 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+@MappedSuperclass
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,7 +22,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userID;
-    private String username;
+    private String name;
     //TODO Password skal kunne ændres af kunde og salesperson, måske en mail med engangskode
     private String password;
     private String role;
@@ -30,13 +30,21 @@ public class User {
     private String email;
     private LocalDate creationYear;
 
-    public User(int userID, String username, String role, LocalDate birthday, String email, LocalDate creationYear) {
+    public User(int userID, String name, String role, LocalDate birthday, String email, LocalDate creationYear) {
         this.userID = userID;
-        this.username = username;
+        this.name = name;
         this.role = role;
         this.birthday = birthday;
         this.email = email;
         this.creationYear = creationYear;
+    }
+
+    public User(int userID, String name, String role, LocalDate birthday, String email) {
+        this.userID = userID;
+        this.name = name;
+        this.role = role;
+        this.birthday = birthday;
+        this.email = email;
     }
 
     @Transient

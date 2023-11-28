@@ -65,7 +65,7 @@ public class SalespersonService {
         Optional<Salesperson> existingSalesperson = salespersonRepository.findById(id);
         if (existingSalesperson.isPresent()){
             Salesperson salespersonToUpdate = salespersonConverter.toEntity(salespersonDTO);
-            salespersonToUpdate.setId(id);
+            salespersonToUpdate.setUserID(id);
             Salesperson savedSalesperson = salespersonRepository.save(salespersonToUpdate);
             return salespersonConverter.toDTO(savedSalesperson);
         } else {
@@ -81,7 +81,7 @@ public class SalespersonService {
      */
     public SalespersonDTO createSalesperson(SalespersonDTO salespersonDTO){
         Salesperson salespersonToSave = salespersonConverter.toEntity(salespersonDTO);
-        salespersonToSave.setId(0);
+        salespersonToSave.setUserID(0);
         Salesperson savedSalesperson = salespersonRepository.save(salespersonToSave);
         return salespersonConverter.toDTO(savedSalesperson);
     }

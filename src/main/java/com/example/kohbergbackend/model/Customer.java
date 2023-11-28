@@ -16,13 +16,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Costumer extends User {
+public class Customer extends User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int costumerID;
     private String name;
-    private LocalDate birthday;
 
 
 

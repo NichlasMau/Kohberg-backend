@@ -1,6 +1,6 @@
 package com.example.kohbergbackend.config;
 
-import com.example.kohbergbackend.model.Costumer;
+import com.example.kohbergbackend.model.Customer;
 import com.example.kohbergbackend.model.User;
 import com.example.kohbergbackend.repository.UserRepository;
 import com.example.kohbergbackend.service.UserService;
@@ -25,7 +25,7 @@ public class InitData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Opret en ny kunde
-        User newUser = new Costumer();
+        User newUser = new Customer();
         newUser.setUsername("John Doe");
         newUser.setBirthday(LocalDate.parse("2001-01-01"));
         newUser.setCreationYear(LocalDate.parse("2022-01-01"));

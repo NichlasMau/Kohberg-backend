@@ -74,26 +74,19 @@ public class UserService {
     public User updateUser(int userId, User updatedUserData) {
         return userRepository.findById(userId)
                 .map(existingUser -> {
-                    // Update user attributes based on the type of user (leader, customer, salesperson)
-                    // You might want to handle this in a more generic way based on your user hierarchy
+                    // Opdater de grundlæggende attributter for User
                     existingUser.setName(updatedUserData.getName());
                     existingUser.setBirthday(updatedUserData.getBirthday());
 
-                    // Additional attributes for specific user types
-                    if (existingUser instanceof Leader) {
-                        ((Leader) existingUser).setHireDate(((Leader) updatedUserData).getHireDate());
-                        ((Leader) existingUser).setUsername(((Leader) updatedUserData).getUsername());
-                    } else if (existingUser instanceof Customer) {
-                        ((Customer) existingUser).setCreationYear(((Customer) updatedUserData).getCreationYear());
-                    } else if (existingUser instanceof Salesperson) {
-                        ((Salesperson) existingUser).setCustomers(((Salesperson) updatedUserData).getCustomers());
-                        ((Salesperson) existingUser).setUsername(((Salesperson) updatedUserData).getUsername());
-                    }
+                    // Opdater eventuelle yderligere attributter for User
+                    existingUser.setEmail(updatedUserData.getEmail());
+                    existingUser.setCreationYear(updatedUserData.getCreationYear());
 
                     return userRepository.save(existingUser);
                 })
                 .orElseThrow(() -> new NotFoundException("User not found with id: " + userId));
     }
+
 
     /**
      * Deletes a user by its unique identifier.

@@ -34,5 +34,13 @@ public class Customer {
     @JoinColumn(name = "salesperson_id")
     private Salesperson salesperson;
 
+    public Customer(int costumerID, String name, String role, LocalDate birthday, String email, LocalDate creationYear) {
+        this.costumerID = costumerID;
+        this.name = name;
+        this.role = role;
+        this.birthday = birthday;
+        this.email = email;
+        this.creationYear = creationYear;
+    }
 
 }

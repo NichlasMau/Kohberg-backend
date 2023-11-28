@@ -1,5 +1,8 @@
 package com.example.kohbergbackend.service;
 
+import com.example.kohbergbackend.dto.CustomerConverter;
+import com.example.kohbergbackend.dto.CustomerDTO;
+import com.example.kohbergbackend.exception.NotFoundException;
 import com.example.kohbergbackend.model.Customer;
 import com.example.kohbergbackend.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,78 +14,82 @@ import java.util.Optional;
 @Service
 public class CustomerService {
 
-    private CustomerRepository costumerRepository;
+
+    private CustomerRepository customerRepository;
+    private CustomerConverter customerConverter;
 
     /**
-     * Constructor for CostumerService.
+     * Constructor for CustomerService.
      *
-     * @param costumerRepository The repository for managing Costumer entities.
+     * @param customerRepository The repository for managing Customer entities.
+     * @param customerConverter  The converter for converting between Customer and CustomerDTO.
      */
     @Autowired
-    public CustomerService(CustomerRepository costumerRepository) {
-        this.costumerRepository =  costumerRepository;
+    public CustomerService(CustomerRepository customerRepository, CustomerConverter customerConverter) {
+        this.customerRepository = customerRepository;
+        this.customerConverter = customerConverter;
     }
 
     /**
-     * Creates a new Costumer.
+     * Creates a new Customer.
      *
-     * @param costumer The Costumer entity to be created.
-     * @return The created Costumer entity.
+     * @param customerDTO The CustomerDTO containing data for creating the Customer.
+     * @return The created Customer entity.
      */
-    public Customer createCostumer(Customer costumer) {
-        return costumerRepository.save(costumer);
+    public Customer createCustomer(CustomerDTO customerDTO) {
+        Customer customer = customerConverter.toEntity(customerDTO);
+        return customerRepository.save(customer);
     }
 
     /**
-     * Retrieves all Costumers.
+     * Retrieves all Customers.
      *
-     * @return A list of all Costumer entities.
+     * @return A list of all Customer entities.
      */
-    public List<Customer> getAllCostumers() {
-        return costumerRepository.findAll();
+    public List<CustomerDTO> getAllCustomers() {
+        List<Customer> customers = customerRepository.findAll();
+        return customerConverter.toDTOList(customers);
+    }
+
+
+    /**
+     * Retrieves a Customer by its unique identifier.
+     *
+     * @param customerId The unique identifier of the Customer to retrieve.
+     * @return An Optional containing the retrieved CustomerDTO, or an empty Optional if not found.
+     */
+    public Optional<CustomerDTO> getCustomerById(int customerId) {
+        Optional<Customer> customerOptional = customerRepository.findById(customerId);
+        return customerOptional.map(customerConverter::toDTO);
     }
 
     /**
-     * Retrieves a Costumer by its unique identifier.
+     * Updates an existing Customer.
      *
-     * @param costumerId The unique identifier of the Costumer to retrieve.
-     * @return An Optional containing the retrieved Costumer, or an empty Optional if not found.
+     * @param customerId          The unique identifier of the Customer to update.
+     * @param updatedCustomerData The updated CustomerDTO data.
+     * @return The updated CustomerDTO, or null if the Customer was not found.
      */
-    public Optional<Customer> getCostumerById(int costumerId) {
-        return costumerRepository.findById(costumerId);
-    }
-
-    /**
-     * Updates an existing Costumer.
-     *
-     * @param costumerId The unique identifier of the Costumer to update.
-     * @return The updated Costumer entity, or null if the Costumer was not found.
-     */
-    public Customer updateCostumer(int costumerId, Customer updatedCostumerData) {
-        return costumerRepository.findById(costumerId)
-                .map(existingCostumer -> {
-                    if (updatedCostumerData.getName() != null) {
-                        existingCostumer.setName(updatedCostumerData.getName());
-                    }
-                    if (updatedCostumerData.getBirthday() != null) {
-                        existingCostumer.setBirthday(updatedCostumerData.getBirthday());
-                    }
-                    if (updatedCostumerData.getCreationYear() != null) {
-                        existingCostumer.setCreationYear(updatedCostumerData.getCreationYear());
-                    }
-
-                    return costumerRepository.save(existingCostumer);
+    public CustomerDTO updateCustomer(int customerId, CustomerDTO updatedCustomerData) {
+        return customerRepository.findById(customerId)
+                .map(existingCustomer -> {
+                    Customer updatedCustomer = customerConverter.toEntity(updatedCustomerData);
+                    existingCustomer.setName(updatedCustomer.getName());
+                    existingCustomer.setBirthday(updatedCustomer.getBirthday());
+                    existingCustomer.setEmail(updatedCustomer.getEmail());
+                    existingCustomer.setCreationYear(updatedCustomer.getCreationYear());
+                    return customerConverter.toDTO(customerRepository.save(existingCustomer));
                 })
                 .orElse(null);
     }
 
     /**
-     * Deletes a Costumer by its unique identifier.
+     * Deletes a Customer by its unique identifier.
      *
-     * @param costumerId The unique identifier of the Costumer to delete.
+     * @param customerId The unique identifier of the Customer to delete.
      */
-    public void deleteCostumer(int costumerId) {
-        costumerRepository.deleteById(costumerId);
+
+    public void deleteCustomer(int customerId) {
+        customerRepository.deleteByCostumerID(customerId);
     }
 }
-

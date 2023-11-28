@@ -42,7 +42,7 @@ public class SaleController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/{saleId}")
+    @PutMapping("/update/{saleId}")
     public ResponseEntity<Sale> updateSale(@PathVariable int saleId, @RequestBody Sale updatedSaleData) {
         Sale updatedSale = saleService.updateSale(saleId, updatedSaleData);
         return updatedSale != null ?
@@ -50,7 +50,7 @@ public class SaleController {
                 new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/{saleId}")
+    @DeleteMapping("/delete/{saleId}")
     public ResponseEntity<Void> deleteCostumer(@PathVariable int saleId) {
         saleService.deleteSale(saleId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

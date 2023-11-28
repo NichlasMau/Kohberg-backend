@@ -2,9 +2,9 @@ package com.example.kohbergbackend.service;
 
 import com.example.kohbergbackend.dto.CustomerConverter;
 import com.example.kohbergbackend.dto.CustomerDTO;
-import com.example.kohbergbackend.exception.NotFoundException;
 import com.example.kohbergbackend.model.Customer;
 import com.example.kohbergbackend.repository.CustomerRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,7 +89,9 @@ public class CustomerService {
      * @param customerId The unique identifier of the Customer to delete.
      */
 
+    @Transactional
     public void deleteCustomer(int customerId) {
         customerRepository.deleteByCostumerID(customerId);
     }
+
 }

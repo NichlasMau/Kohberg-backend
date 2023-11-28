@@ -26,7 +26,7 @@ public class InitData implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // Opret en ny kunde
         User newUser = new Customer();
-        newUser.setUsername("John Doe");
+        newUser.setName("John Doe");
         newUser.setBirthday(LocalDate.parse("2001-01-01"));
         newUser.setCreationYear(LocalDate.parse("2022-01-01"));
 

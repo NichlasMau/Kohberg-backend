@@ -1,5 +1,4 @@
 package com.example.kohbergbackend.controller;
-import com.example.kohbergbackend.dto.SalespersonDTO;
 import com.example.kohbergbackend.service.SalespersonService;
 
 import org.springframework.http.HttpStatus;

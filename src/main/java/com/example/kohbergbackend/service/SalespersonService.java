@@ -1,7 +1,5 @@
 package com.example.kohbergbackend.service;
 
-import com.example.kohbergbackend.dto.SalespersonConverter;
-import com.example.kohbergbackend.dto.SalespersonDTO;
 import com.example.kohbergbackend.exception.NotFoundException;
 import com.example.kohbergbackend.model.Salesperson;
 import com.example.kohbergbackend.repository.SalespersonRepository;

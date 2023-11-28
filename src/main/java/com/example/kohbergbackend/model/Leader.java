@@ -1,15 +1,13 @@
 package com.example.kohbergbackend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,12 +19,26 @@ public class Leader extends User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int leaderID;
-    private String position;
     private LocalDate hireDate;
+    private String username;
 
-    public Leader(int id, String name, String role, LocalDate birthday, String email, String position, LocalDate hireDate) {
-        super(id, name, role, birthday, email);
-        this.position = position;
+    @OneToMany(mappedBy = "leader")
+    private List<Customer> customers;
+
+    @OneToMany(mappedBy = "leader")
+    private List<Salesperson> salespersons;
+
+
+
+    public Leader(int leaderID, String name, String username, String role, LocalDate birthday, String email,
+                  LocalDate hireDate, List<Customer> customers,
+                  List<Salesperson> salespersons) {
+        super(leaderID, name, role, birthday, email);
+        this.username = username;
         this.hireDate = hireDate;
+        this.customers = customers;
+        this.salespersons = salespersons;
     }
 }
+
+

@@ -1,6 +1,5 @@
 package com.example.kohbergbackend.controller;
 
-import com.example.kohbergbackend.model.Costumer;
 import com.example.kohbergbackend.model.User;
 import com.example.kohbergbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

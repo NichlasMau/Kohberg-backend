@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 
 @Entity
@@ -13,14 +14,19 @@ import java.util.Locale;
 @NoArgsConstructor
 @ToString
 public class Salesperson extends User{
-    private int customer;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int salespersonID;
+    private String username;
 
-    public Salesperson(int id, String name, String role, LocalDate birthday, int customer, String email) {
-        super(id, name, "salesperson", role, birthday, email);
-        this.customer = customer;
+    @OneToMany(mappedBy = "salesperson")
+    private List<Customer> customers;
+
+    public Salesperson(int salespersonID, String name, String username, String role, LocalDate birthday, List<Customer> customers, String email) {
+        super(salespersonID, name, role, birthday, email);
+        this.customers = customers;
+        this.username = username;
     }
-
-
 
     @Transient
     public String getFormattedReminderDate() {

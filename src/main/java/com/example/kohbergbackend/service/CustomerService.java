@@ -2,12 +2,12 @@ package com.example.kohbergbackend.service;
 
 import com.example.kohbergbackend.dto.CustomerConverter;
 import com.example.kohbergbackend.dto.CustomerDTO;
+import com.example.kohbergbackend.exception.NotFoundException;
 import com.example.kohbergbackend.model.Customer;
 import com.example.kohbergbackend.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,6 +76,7 @@ public class CustomerService {
                     Customer updatedCustomer = customerConverter.toEntity(updatedCustomerData);
                     existingCustomer.setName(updatedCustomer.getName());
                     existingCustomer.setBirthday(updatedCustomer.getBirthday());
+                    existingCustomer.setEmail(updatedCustomer.getEmail());
                     existingCustomer.setCreationYear(updatedCustomer.getCreationYear());
                     return customerConverter.toDTO(customerRepository.save(existingCustomer));
                 })
@@ -87,7 +88,8 @@ public class CustomerService {
      *
      * @param customerId The unique identifier of the Customer to delete.
      */
+
     public void deleteCustomer(int customerId) {
-        customerRepository.deleteById(customerId);
+        customerRepository.deleteByCostumerID(customerId);
     }
 }

@@ -1,9 +1,6 @@
 package com.example.kohbergbackend.service;
 
 import com.example.kohbergbackend.exception.NotFoundException;
-import com.example.kohbergbackend.model.Customer;
-import com.example.kohbergbackend.model.Leader;
-import com.example.kohbergbackend.model.Salesperson;
 import com.example.kohbergbackend.model.User;
 import com.example.kohbergbackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,6 @@ import java.util.Optional;
 public class UserService {
 
     private UserRepository userRepository;
-
 
     /**
      * Constructor for UserService.

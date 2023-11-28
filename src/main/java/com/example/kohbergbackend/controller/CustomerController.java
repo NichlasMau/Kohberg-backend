@@ -35,24 +35,26 @@ public class CustomerController {
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<CustomerDTO> getCostumerById(@PathVariable int userId) {
-        Optional<CustomerDTO> user = customerService.getCustomerById(userId);
+    @GetMapping("/{costumerId}")
+    public ResponseEntity<CustomerDTO> getCostumerById(@PathVariable int costumerId) {
+        Optional<CustomerDTO> user = customerService.getCustomerById(costumerId);
         return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/{userId}")
-    public ResponseEntity<CustomerDTO> updateCostumer(@PathVariable int userId, @RequestBody CustomerDTO updatedCustomerData) {
-        CustomerDTO updatedCostumer = customerService.updateCustomer(userId, updatedCustomerData);
+    @PutMapping("/update/{costumerId}")
+    public ResponseEntity<CustomerDTO> updateCostumer(@PathVariable int costumerId, @RequestBody CustomerDTO updatedCustomerData) {
+        CustomerDTO updatedCostumer = customerService.updateCustomer(costumerId, updatedCustomerData);
         return updatedCostumer != null ?
                 new ResponseEntity<>(updatedCostumer, HttpStatus.OK) :
                 new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/{costumerId}")
-    public ResponseEntity<Void> deleteCostumer(@PathVariable int costumerId) {
-        customerService.deleteCustomer(costumerId);
+    @DeleteMapping("/delete-customer/{customerID}")
+    public ResponseEntity<Void> deleteCustomer(@PathVariable int customerID) {
+        System.out.println("Deleting customer with ID: " + customerID);
+        customerService.deleteCustomer(customerID);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }

@@ -41,8 +41,6 @@ public class Customer {
         this.birthday = birthday;
         this.email = email;
         this.creationYear = creationYear;
-        this.leader = leader;
-        this.salesperson = salesperson;
     }
 
 }

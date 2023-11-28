@@ -14,13 +14,20 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Leader extends User{
+public class Leader {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int leaderID;
+
     private LocalDate hireDate;
     private String username;
+    private String name;
+    private String password;
+    private String role;
+    private LocalDate birthday;
+    private String email;
+    private LocalDate creationYear;
 
     @OneToMany(mappedBy = "leader")
     private List<Customer> customers;
@@ -28,14 +35,10 @@ public class Leader extends User{
     @OneToMany(mappedBy = "leader")
     private List<Salesperson> salespersons;
 
-
-
-    public Leader(int leaderID, String name, String username, String role, LocalDate birthday, String email,
-                  LocalDate hireDate, List<Customer> customers,
-                  List<Salesperson> salespersons) {
-        super(leaderID, name, role, birthday, email);
-        this.username = username;
+    public Leader(int leaderID, LocalDate hireDate, String username, List<Customer> customers, List<Salesperson> salespersons) {
+        this.leaderID = leaderID;
         this.hireDate = hireDate;
+        this.username = username;
         this.customers = customers;
         this.salespersons = salespersons;
     }

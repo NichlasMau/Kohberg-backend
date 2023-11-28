@@ -1,9 +1,6 @@
 package com.example.kohbergbackend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,14 +13,26 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Customer extends User {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int costumerID;
     private String name;
+    //TODO Password skal kunne ændres af kunde og salesperson, måske en mail med engangskode
+    private String password;
+    private String role;
+    private LocalDate birthday;
+    private String email;
+    private LocalDate creationYear;
 
+    @ManyToOne
+    @JoinColumn(name = "leader_id")
+    private Leader leader;
 
+    @ManyToOne
+    @JoinColumn(name = "salesperson_id")
+    private Salesperson salesperson;
 
 
 }

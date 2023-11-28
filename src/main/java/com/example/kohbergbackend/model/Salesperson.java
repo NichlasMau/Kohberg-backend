@@ -13,19 +13,38 @@ import java.util.Locale;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Salesperson extends User{
+public class Salesperson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int salespersonID;
+
     private String username;
+    private String name;
+    private String password;
+    private String role;
+    private LocalDate birthday;
+    private String email;
+    private LocalDate creationYear;
 
     @OneToMany(mappedBy = "salesperson")
     private List<Customer> customers;
 
-    public Salesperson(int salespersonID, String name, String username, String role, LocalDate birthday, List<Customer> customers, String email) {
-        super(salespersonID, name, role, birthday, email);
-        this.customers = customers;
+    @ManyToOne
+    @JoinColumn(name = "leader_id") // sørg for, at dette navn matcher det, du har i Leader-klassen
+    private Leader leader;
+
+    public Salesperson(int salespersonID, String username, List<Customer> customers) {
+        this.salespersonID = salespersonID;
         this.username = username;
+        this.customers = customers;
+    }
+
+    public Salesperson(int id, String name, LocalDate birthday, List<Customer> customers, String email) {
+        this.salespersonID = id;
+        this.name = name;
+        this.birthday = birthday;
+        this.customers = customers;
+        this.email = email;
     }
 
     @Transient

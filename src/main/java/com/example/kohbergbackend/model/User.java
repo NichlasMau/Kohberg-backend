@@ -39,13 +39,7 @@ public class User {
         this.creationYear = creationYear;
     }
 
-    public User(int userID, String name, String role, LocalDate birthday, String email) {
-        this.userID = userID;
-        this.name = name;
-        this.role = role;
-        this.birthday = birthday;
-        this.email = email;
-    }
+
 
     @Transient
     public String getFormattedReminderDate() {

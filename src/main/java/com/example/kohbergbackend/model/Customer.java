@@ -20,7 +20,6 @@ public class Customer {
     private int costumerID;
     private String name;
     //TODO Password skal kunne ændres af kunde og salesperson, måske en mail med engangskode
-    private String password;
     private String role;
     private LocalDate birthday;
     private String email;

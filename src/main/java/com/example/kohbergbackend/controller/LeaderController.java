@@ -24,6 +24,12 @@ public class LeaderController {
         this.leaderService = leaderService;
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<Leader> createLeader(@RequestBody Leader leader) {
+        Leader createdLeader = leaderService.createLeader(leader);
+        return new ResponseEntity<>(createdLeader, HttpStatus.CREATED);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Leader>> getAllLeaders() {
         List<Leader> leaders = leaderService.getAllLeaders();

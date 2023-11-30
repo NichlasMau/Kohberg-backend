@@ -32,17 +32,32 @@ public class LeaderService {
                 .orElseThrow(() -> new NotFoundException("Leader not found with id: " + leaderId));
     }
 
-    public Leader updateLeader(int leaderId, Leader leader) {
-        return leaderRepository.save(leader);
+    public Leader updateLeader(int leaderId, Leader updatedLeader) {
+        Leader existingLeader = leaderRepository.findById(leaderId)
+                .orElseThrow(() -> new NotFoundException("Leader not found with ID: " + leaderId));
+
+        // Update the attributes of the existing leader with the values from the updated leader
+        existingLeader.setHireDate(updatedLeader.getHireDate());
+        existingLeader.setUsername(updatedLeader.getUsername());
+        existingLeader.setName(updatedLeader.getName());
+        existingLeader.setPassword(updatedLeader.getPassword());
+        existingLeader.setRole(updatedLeader.getRole());
+        existingLeader.setBirthday(updatedLeader.getBirthday());
+        existingLeader.setEmail(updatedLeader.getEmail());
+        existingLeader.setCreationYear(updatedLeader.getCreationYear());
+
+        // Save the updated leader in the repository
+        return leaderRepository.save(existingLeader);
     }
 
-    public Leader deleteLeader(int leaderId) {
+    public void deleteLeader(int leaderId) {
         Optional<Leader> leaderOptional = leaderRepository.findById(leaderId);
+
         if (leaderOptional.isPresent()) {
             leaderRepository.deleteById(leaderId);
-            return leaderOptional.get();
         } else {
             throw new NotFoundException("Leader not found with id: " + leaderId);
         }
     }
+
 }

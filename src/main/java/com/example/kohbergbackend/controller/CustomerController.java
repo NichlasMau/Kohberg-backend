@@ -1,7 +1,6 @@
 package com.example.kohbergbackend.controller;
 
 import com.example.kohbergbackend.dto.CustomerDTO;
-import com.example.kohbergbackend.exception.NotFoundException;
 import com.example.kohbergbackend.model.Customer;
 import com.example.kohbergbackend.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;

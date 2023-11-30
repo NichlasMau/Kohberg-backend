@@ -1,6 +1,5 @@
 package com.example.kohbergbackend.controller;
 
-import com.example.kohbergbackend.dto.ReminderDTO;
 import com.example.kohbergbackend.model.Reminder;
 import com.example.kohbergbackend.service.ReminderService;
 import org.springframework.beans.factory.annotation.Autowired;

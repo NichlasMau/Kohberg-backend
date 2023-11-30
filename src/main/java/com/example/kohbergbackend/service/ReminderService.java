@@ -32,8 +32,10 @@ public class ReminderService {
 
     // Hent en påmindelse baseret på ID
     public Optional<Reminder> getReminderById(int id) {
-        return reminderRepository.findById(id);
+        Optional<Reminder> reminderOptional = reminderRepository.findById(id);
+        return Optional.ofNullable(reminderOptional.orElseThrow(() -> new NotFoundException("Reminder not found with id: " + id)));
     }
+
 
     // Opdater en påmindelse
     public Reminder updateReminder(int id, Reminder updatedReminder) {

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +35,7 @@ class ReminderServiceTest {
         Reminder createdReminder = reminderService.createReminder(newReminder);
 
         // Assert
-        assertEquals(newReminder.getReminderID(), createdReminder.getReminderDate());
+        assertEquals(newReminder.getReminderID(), createdReminder.getReminderID());
         // Additional assertions based on your model
     }
 
@@ -65,9 +66,27 @@ class ReminderServiceTest {
         // Assert
         assertTrue(retrievedReminderOptional.isPresent());
         Reminder retrievedReminder = retrievedReminderOptional.get();
-        assertEquals(existingReminder.getReminderID(), retrievedReminder.getReminderDate());
+        assertEquals(existingReminder.getReminderID(), retrievedReminder.getReminderID());
         // Additional assertions based on your model
     }
+
+    // Separate test for getReminderDate()
+    @Test
+    void getFormattedReminderDate_ReturnsFormattedDate() {
+        // Arrange
+        Reminder reminder = new Reminder();
+
+        reminder.setReminderDate(LocalDate.now());
+
+        // Act
+        String formattedDate = reminder.getFormattedReminderDate();
+
+        // Assert
+        assertNotNull(formattedDate, "Formatted date should not be null");
+        assertFalse(formattedDate.isEmpty(), "Formatted date should not be empty");
+        // Add more specific assertions for the formatted date if necessary
+    }
+
 
     @Test
     void getReminderById_NonExistingId_ThrowsNotFoundException() {

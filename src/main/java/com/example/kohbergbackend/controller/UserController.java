@@ -1,7 +1,6 @@
 package com.example.kohbergbackend.controller;
 
 
-import com.example.kohbergbackend.model.Sale;
 import com.example.kohbergbackend.model.User;
 import com.example.kohbergbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/{costumerId")
+    @GetMapping("/{userId")
     public ResponseEntity<User> getUserById(@PathVariable int userId){
         Optional<User> user = userService.getUserById(userId);
         return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -51,7 +50,7 @@ public class UserController {
                 new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/delete/{saleId}")
+    @DeleteMapping("/delete/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable int userId) {
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -1,6 +1,7 @@
 package com.example.kohbergbackend.controller;
 
 import com.example.kohbergbackend.dto.CustomerDTO;
+import com.example.kohbergbackend.exception.NotFoundException;
 import com.example.kohbergbackend.model.Customer;
 import com.example.kohbergbackend.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.Optional;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     @Autowired
     public CustomerController(CustomerService customerService){
@@ -24,29 +25,29 @@ public class CustomerController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Customer> createCostumer(@RequestBody CustomerDTO customer) {
+    public ResponseEntity<Customer> createCustomer(@RequestBody CustomerDTO customer) {
         Customer createdCustomer = customerService.createCustomer(customer);
         return new ResponseEntity<>(createdCustomer, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<CustomerDTO>> getAllCostumers() {
+    public ResponseEntity<List<CustomerDTO>> getAllCustomers() {
         List<CustomerDTO> customers = customerService.getAllCustomers();
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
-    @GetMapping("/{costumerId}")
-    public ResponseEntity<CustomerDTO> getCostumerById(@PathVariable int costumerId) {
-        Optional<CustomerDTO> user = customerService.getCustomerById(costumerId);
+    @GetMapping("/{customerId}")
+    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable int customerId) {
+        Optional<CustomerDTO> user = customerService.getCustomerById(customerId);
         return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/update/{costumerId}")
-    public ResponseEntity<CustomerDTO> updateCostumer(@PathVariable int costumerId, @RequestBody CustomerDTO updatedCustomerData) {
-        CustomerDTO updatedCostumer = customerService.updateCustomer(costumerId, updatedCustomerData);
-        return updatedCostumer != null ?
-                new ResponseEntity<>(updatedCostumer, HttpStatus.OK) :
+    @PutMapping("/update/{customerId}")
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable int customerId, @RequestBody CustomerDTO updatedCustomerData) {
+        CustomerDTO updatedCustomer = customerService.updateCustomer(customerId, updatedCustomerData);
+        return updatedCustomer != null ?
+                new ResponseEntity<>(updatedCustomer, HttpStatus.OK) :
                 new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

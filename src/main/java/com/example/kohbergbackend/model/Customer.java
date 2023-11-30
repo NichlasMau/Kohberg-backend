@@ -17,7 +17,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int costumerID;
+    private int customerID;
     private String name;
     //TODO Password skal kunne ændres af kunde og salesperson, måske en mail med engangskode
     private String password;
@@ -34,8 +34,8 @@ public class Customer {
     @JoinColumn(name = "salesperson_id")
     private Salesperson salesperson;
 
-    public Customer(int costumerID, String name, String role, LocalDate birthday, String email, LocalDate creationYear) {
-        this.costumerID = costumerID;
+    public Customer(int customerID, String name, String role, LocalDate birthday, String email, LocalDate creationYear) {
+        this.customerID = customerID;
         this.name = name;
         this.role = role;
         this.birthday = birthday;

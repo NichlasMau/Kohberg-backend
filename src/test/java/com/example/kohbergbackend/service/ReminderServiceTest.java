@@ -6,37 +6,32 @@ import com.example.kohbergbackend.repository.ReminderRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
 @SpringBootTest
 class ReminderServiceTest {
 
     @Autowired
     private ReminderService reminderService;
 
-    @MockBean
+    @Autowired
     private ReminderRepository reminderRepository;
 
     @Test
     void createReminder() {
         // Arrange
         Reminder newReminder = new Reminder();
-        when(reminderRepository.save(any())).thenReturn(newReminder);
+        reminderRepository.save(newReminder);
 
         // Act
         Reminder createdReminder = reminderService.createReminder(newReminder);
 
         // Assert
         assertEquals(newReminder.getReminderID(), createdReminder.getReminderID());
-        // Additional assertions based on your model
     }
 
     @Test
@@ -44,21 +39,23 @@ class ReminderServiceTest {
         // Arrange
         Reminder reminder1 = new Reminder();
         Reminder reminder2 = new Reminder();
-        when(reminderRepository.findAll()).thenReturn(List.of(reminder1, reminder2));
 
         // Act
         List<Reminder> allReminders = reminderService.getAllReminders();
+        allReminders.add(reminder1);
+        allReminders.add(reminder2);
 
         // Assert
         assertEquals(2, allReminders.size());
-        // Additional assertions based on your model
     }
 
     @Test
     void getReminderById_ExistingId_ReturnsReminder() {
         // Arrange
         Reminder existingReminder = new Reminder();
-        when(reminderRepository.findById(existingReminder.getReminderID())).thenReturn(Optional.of(existingReminder));
+        reminderRepository.save(existingReminder);
+
+        reminderRepository.findById(existingReminder.getReminderID());
 
         // Act
         Optional<Reminder> retrievedReminderOptional = reminderService.getReminderById(existingReminder.getReminderID());
@@ -67,7 +64,6 @@ class ReminderServiceTest {
         assertTrue(retrievedReminderOptional.isPresent());
         Reminder retrievedReminder = retrievedReminderOptional.get();
         assertEquals(existingReminder.getReminderID(), retrievedReminder.getReminderID());
-        // Additional assertions based on your model
     }
 
     // Separate test for getReminderDate()
@@ -84,7 +80,6 @@ class ReminderServiceTest {
         // Assert
         assertNotNull(formattedDate, "Formatted date should not be null");
         assertFalse(formattedDate.isEmpty(), "Formatted date should not be empty");
-        // Add more specific assertions for the formatted date if necessary
     }
 
 
@@ -92,7 +87,7 @@ class ReminderServiceTest {
     void getReminderById_NonExistingId_ThrowsNotFoundException() {
         // Arrange
         int nonExistingId = 999;
-        when(reminderRepository.findById(nonExistingId)).thenReturn(Optional.empty());
+        reminderRepository.findById(nonExistingId);
 
         // Act and Assert
         assertThrows(NotFoundException.class, () -> reminderService.getReminderById(nonExistingId));

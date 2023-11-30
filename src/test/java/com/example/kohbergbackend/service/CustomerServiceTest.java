@@ -3,7 +3,6 @@ package com.example.kohbergbackend.service;
 import com.example.kohbergbackend.dto.CustomerConverter;
 import com.example.kohbergbackend.dto.CustomerDTO;
 import com.example.kohbergbackend.model.Customer;
-import com.example.kohbergbackend.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,10 +19,8 @@ class CustomerServiceTest {
     private CustomerService customerService;
 
     @Autowired
-    private CustomerRepository customerRepository;
-
-    @Autowired
     private CustomerConverter customerConverter;
+
 
     @Test
     void createCustomer() {
@@ -81,7 +78,7 @@ class CustomerServiceTest {
         Customer createdCustomer = customerService.createCustomer(newCustomerDTO);
 
         // Act
-        Optional<CustomerDTO> retrievedCustomer = customerService.getCustomerById(createdCustomer.getCostumerID());
+        Optional<CustomerDTO> retrievedCustomer = customerService.getCustomerById(createdCustomer.getCustomerID());
 
         // Assert
         assertTrue(retrievedCustomer.isPresent());
@@ -105,7 +102,7 @@ class CustomerServiceTest {
 
         // Act
         createdCustomer.setName("Updated Name");
-        CustomerDTO updatedCustomer = customerService.updateCustomer(createdCustomer.getCostumerID(), customerConverter.toDTO(createdCustomer));
+        CustomerDTO updatedCustomer = customerService.updateCustomer(createdCustomer.getCustomerID(), customerConverter.toDTO(createdCustomer));
 
         // Assert
         assertNotNull(updatedCustomer);
@@ -127,9 +124,9 @@ class CustomerServiceTest {
         Customer createdCustomer = customerService.createCustomer(newCustomerDTO);
 
         // Act
-        customerService.deleteCustomer(createdCustomer.getCostumerID());
+        customerService.deleteCustomer(createdCustomer.getCustomerID());
 
         // Assert
-        assertFalse(customerService.getCustomerById(createdCustomer.getCostumerID()).isPresent());
+        assertFalse(customerService.getCustomerById(createdCustomer.getCustomerID()).isPresent());
     }
 }

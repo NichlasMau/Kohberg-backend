@@ -28,7 +28,7 @@ public class CustomerConverter {
 
     public CustomerDTO toDTO(Customer customer) {
         return new CustomerDTO(
-                customer.getCostumerID(),
+                customer.getCustomerID(),
                 customer.getName(),
                 customer.getRole(),
                 customer.getBirthday(),

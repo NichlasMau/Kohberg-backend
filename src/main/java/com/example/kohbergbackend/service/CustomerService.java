@@ -91,7 +91,7 @@ public class CustomerService {
 
     @Transactional
     public void deleteCustomer(int customerId) {
-        customerRepository.deleteByCostumerID(customerId);
+        customerRepository.deleteByCustomerID(customerId);
     }
 
 }

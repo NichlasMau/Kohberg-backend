@@ -45,8 +45,8 @@ public class ReminderService {
                         existingReminder.setReminderDate(updatedReminder.getReminderDate());
                     }
 
-                    if (updatedReminder.getCostumerID() != 0) {
-                        existingReminder.setCostumerID(updatedReminder.getCostumerID());
+                    if (updatedReminder.getCustomerID() != 0) {
+                        existingReminder.setCustomerID(updatedReminder.getCustomerID());
                     }
 
                     if (updatedReminder.getMessage() != null) {

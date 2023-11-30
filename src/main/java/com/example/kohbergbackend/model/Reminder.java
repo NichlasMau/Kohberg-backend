@@ -20,7 +20,7 @@ public class Reminder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reminderID;
-    private int costumerID;
+    private int customerID;
     private LocalDate reminderDate;
     private String message;
 

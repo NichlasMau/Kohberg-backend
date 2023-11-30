@@ -34,12 +34,12 @@ public class ReminderServiceMockitoTest {
         Reminder existingReminder = new Reminder();
         existingReminder.setReminderID(1);
         existingReminder.setReminderDate(LocalDate.now());
-        existingReminder.setCostumerID(123);
+        existingReminder.setCustomerID(123);
         existingReminder.setMessage("Test message");
 
         Reminder updatedReminderData = new Reminder();
         updatedReminderData.setReminderDate(LocalDate.now().plusDays(1));
-        updatedReminderData.setCostumerID(456);
+        updatedReminderData.setCustomerID(456);
         updatedReminderData.setMessage("Updated message");
 
         when(reminderRepository.findById(existingReminder.getReminderID())).thenReturn(Optional.of(existingReminder));
@@ -50,7 +50,7 @@ public class ReminderServiceMockitoTest {
 
         // Assert
         assertEquals(updatedReminderData.getReminderDate(), updatedReminder.getReminderDate());
-        assertEquals(updatedReminderData.getCostumerID(), updatedReminder.getCostumerID());
+        assertEquals(updatedReminderData.getCustomerID(), updatedReminder.getCustomerID());
         assertEquals(updatedReminderData.getMessage(), updatedReminder.getMessage());
     }
 

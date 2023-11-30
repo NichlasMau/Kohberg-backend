@@ -8,6 +8,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * The {@code Salesperson} class represents a salesperson in the system.
+ * Salespeople can have associated customers, a leader, and various personal information.
+ *
+ * <p>This class is an entity mapped to the database table representing salespersons.
+ *
+ * @author [Your Name]
+ * @version 1.0
+ */
+
 @Entity
 @Getter
 @Setter
@@ -33,12 +43,6 @@ public class Salesperson {
     @JoinColumn(name = "leader_id") // sørg for, at dette navn matcher det, du har i Leader-klassen
     private Leader leader;
 
-    public Salesperson(int salespersonID, String username, List<Customer> customers) {
-        this.salespersonID = salespersonID;
-        this.username = username;
-        this.customers = customers;
-    }
-
     public Salesperson(int id, String name, LocalDate birthday, List<Customer> customers, String email) {
         this.salespersonID = id;
         this.name = name;
@@ -47,11 +51,14 @@ public class Salesperson {
         this.email = email;
     }
 
+    /**
+     * Gets the formatted reminder date based on the birthday.
+     *
+     * @return A formatted reminder date string (e.g., "dd.MM.yyyy").
+     */
     @Transient
     public String getFormattedReminderDate() {
-        // Vælg det ønskede format (fx. "dd.MM.yyyy")
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", new Locale("da", "DK"));
-        // Formatér LocalDate til en streng
         return getBirthday().format(formatter);
     }
 }

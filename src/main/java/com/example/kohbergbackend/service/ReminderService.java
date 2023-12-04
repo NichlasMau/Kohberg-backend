@@ -72,11 +72,6 @@ public class ReminderService {
     public void sendReminderEmails() {
 
 
-        // Implementer logikken for at sende påmindelser til kundernes e-mails
-        // Hent påmindelser, der har en deadline i dag, og send e-mails
-        // Brug JavaMailSender eller et tredjepartsbibliotek til at sende e-mails
-        // Eksempel:
-        // emailSender.sendEmail(customer.getEmail(), "Påmindelse", "Din deadline er i dag!");
     }
 }
 

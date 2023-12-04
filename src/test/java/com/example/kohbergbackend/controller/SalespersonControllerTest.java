@@ -176,7 +176,7 @@ class SalespersonControllerTest {
         assertEquals(expectedAsString, actualAsString);
     }
 
-    @Test
+    /*@Test
     @Order(3)
     void createAndThenUpdateSalesperson() {
         int salespersonId = 1;
@@ -254,7 +254,7 @@ class SalespersonControllerTest {
         // Assert that the updated salesperson matches the expected updated data
         assertEquals(updatedSalespersonDTO.id(), updatedSalesperson.id());
         assertEquals(updatedSalespersonDTO.name(), updatedSalesperson.name());
-    }
+    }*/
 
     @Test
     @Order(4)

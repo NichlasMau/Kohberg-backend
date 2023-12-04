@@ -17,6 +17,7 @@ import org.springframework.http.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -199,21 +200,21 @@ class SalespersonControllerTest {
                 "customer2@example.com",
                 LocalDate.parse("2022-02-02")
         );
-        //Save customers to database
+
+        // Save customers to the database
         customerRepository.save(customerConverter.toEntity(customer1));
         customerRepository.save(customerConverter.toEntity(customer2));
 
-        // Convert CustomerDTOs to Customers
-        List<Customer> customers = Stream.of(customer1, customer2)
-                .map(customerConverter::toEntity)
-                .collect(Collectors.toList());
+        // Retrieve existing customers from the database
+        Customer existingCustomer1 = customerRepository.findById(1).orElseThrow();
+        Customer existingCustomer2 = customerRepository.findById(2).orElseThrow();
 
-        // Create the initial salesperson data
+        // Create the initial salesperson data with existing customers
         SalespersonDTO initialSalespersonDTO = new SalespersonDTO(
                 1,
                 "Initial Name",
                 LocalDate.parse("2010-10-10"),
-                Collections.emptyList(),
+                Arrays.asList(existingCustomer1, existingCustomer2),
                 "initial@example.com"
         );
 
@@ -231,10 +232,10 @@ class SalespersonControllerTest {
 
         // Update the salesperson data
         SalespersonDTO updatedSalespersonDTO = new SalespersonDTO(
-                1,
+                createdSalesperson.id(),
                 "John Doe",
                 LocalDate.parse("2012-12-12"),
-                customers,
+                Arrays.asList(existingCustomer1, existingCustomer2),
                 "john.doe@example.com"
         );
 

@@ -22,7 +22,6 @@ public class SalespersonService {
         this.salespersonConverter = salespersonConverter;
     }
 
-
     public SalespersonDTO createSalesperson(SalespersonDTO salespersonDTO) {
         Salesperson salesperson = salespersonConverter.toEntity(salespersonDTO);
         Salesperson savedSalesperson = salespersonRepository.save(salesperson);

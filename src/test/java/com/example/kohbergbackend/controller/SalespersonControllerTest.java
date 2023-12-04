@@ -231,7 +231,7 @@ class SalespersonControllerTest {
 
         // Update the salesperson data
         SalespersonDTO updatedSalespersonDTO = new SalespersonDTO(
-                createdSalesperson.id(),
+                1,
                 "John Doe",
                 LocalDate.parse("2012-12-12"),
                 customers,

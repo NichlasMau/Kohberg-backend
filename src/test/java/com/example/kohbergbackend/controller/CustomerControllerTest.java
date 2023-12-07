@@ -58,6 +58,8 @@ class CustomerControllerTest {
                 "jane.doe@example.com",
                 LocalDate.parse("2022-01-02"));
 
+        customerRepository.save(customer1);
+        customerRepository.save(customer2);
         customerRepository.saveAll(Arrays.asList(customer1, customer2));
 
         // Act

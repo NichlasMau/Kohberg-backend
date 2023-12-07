@@ -23,6 +23,7 @@ public class Customer {
     private String email;
     private LocalDate creationYear;
 
+
     @ManyToOne
     @JoinColumn(name = "leader_id")
     private Leader leader;
@@ -30,6 +31,10 @@ public class Customer {
     @ManyToOne
     @JoinColumn(name = "salesperson_id")
     private Salesperson salesperson;
+
+    @ManyToOne
+    @JoinColumn(name = "sale_id")
+    private Sale sale;
 
     public Customer(int customerID, String name, String role, LocalDate birthday, String email, LocalDate creationYear) {
         this.customerID = customerID;

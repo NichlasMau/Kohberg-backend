@@ -22,6 +22,17 @@ public class Sale {
     private LocalDate saleDate;
     private String product;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    public Sale(int saleID, int customerID, LocalDate saleDate, String product) {
+        this.saleID = saleID;
+        this.customerID = customerID;
+        this.saleDate = saleDate;
+        this.product = product;
+        this.customer = customer;
+    }
 
     @Transient
     public String getFormattedReminderDate() {
@@ -30,6 +41,7 @@ public class Sale {
         // Formatér LocalDate til en streng
         return saleDate.format(formatter);
     }
+
 
 
 }

@@ -13,6 +13,7 @@ import java.util.Arrays;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -50,7 +51,7 @@ class CustomerControllerTest {
                 LocalDate.parse("2001-01-01"),
                 "john.doe@example.com",
                 LocalDate.parse("2022-01-01"));
-        Customer customer2 = new Customer(1,
+        Customer customer2 = new Customer(2,
                 "Jane Doe",
                 "Customer",
                 LocalDate.parse("2001-01-01"),

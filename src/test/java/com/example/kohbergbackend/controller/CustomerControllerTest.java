@@ -54,9 +54,9 @@ class CustomerControllerTest {
         Customer customer2 = new Customer(2,
                 "Jane Doe",
                 "Customer",
-                LocalDate.parse("2001-01-01"),
-                "john.doe@example.com",
-                LocalDate.parse("2022-01-01"));
+                LocalDate.parse("2001-01-02"),
+                "jane.doe@example.com",
+                LocalDate.parse("2022-01-02"));
 
         customerRepository.saveAll(Arrays.asList(customer1, customer2));
 

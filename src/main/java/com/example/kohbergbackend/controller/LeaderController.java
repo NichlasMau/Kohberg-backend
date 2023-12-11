@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -28,6 +29,20 @@ public class LeaderController {
     public ResponseEntity<Leader> createLeader(@RequestBody Leader leader) {
         Leader createdLeader = leaderService.createLeader(leader);
         return new ResponseEntity<>(createdLeader, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> loginLeader(@RequestBody Map<String, String> loginDetails) {
+        String email = loginDetails.get("email");
+        String password = loginDetails.get("password");
+
+        boolean isAuthenticated = leaderService.leaderLogin(email, password);
+
+        if (isAuthenticated) {
+            return new ResponseEntity<>("Login successful", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @GetMapping("/all")

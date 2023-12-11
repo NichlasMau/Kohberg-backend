@@ -32,6 +32,15 @@ public class LeaderService {
                 .orElseThrow(() -> new NotFoundException("Leader not found with id: " + leaderId));
     }
 
+    public boolean leaderLogin(String email, String password) {
+        Leader leader = leaderRepository.findByEmail(email);
+
+        if (leader != null) {
+            return password.equals(leader.getPassword());
+        }
+        return false;
+    }
+
     public Leader updateLeader(int leaderId, Leader updatedLeader) {
         Leader existingLeader = leaderRepository.findById(leaderId)
                 .orElseThrow(() -> new NotFoundException("Leader not found with ID: " + leaderId));

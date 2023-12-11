@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 @RequestMapping("/leader")
 public class LeaderController {
     private LeaderService leaderService;

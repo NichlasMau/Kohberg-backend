@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +39,7 @@ public class CustomerService {
      */
     public Customer createCustomer(CustomerDTO customerDTO) {
         Customer customer = customerConverter.toEntity(customerDTO);
+        customer.setCreationYear(LocalDate.now());
         return customerRepository.save(customer);
     }
 

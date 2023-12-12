@@ -3,7 +3,7 @@ package com.example.kohbergbackend.security.controller;
 import com.example.kohbergbackend.security.JwtTokenManager;
 import com.example.kohbergbackend.security.model.JwtRequestModel;
 import com.example.kohbergbackend.security.model.JwtResponseModel;
-import com.example.kohbergbackend.security.model.User;
+import com.example.kohbergbackend.security.model.User2;
 import com.example.kohbergbackend.security.service.IUserService;
 import com.example.kohbergbackend.security.service.JwtUserDetailsService;
 import lombok.AllArgsConstructor;
@@ -40,7 +40,7 @@ public class JwtController {
     @PostMapping("/signup")
     public ResponseEntity<JwtResponseModel> signup(@RequestBody JwtRequestModel request){
         System.out.println("signup: username:" + request.getUsername() + " password: " + request.getPassword() );
-        User user = new User(request.getUsername(),request.getPassword());
+        User2 user = new User2(request.getUsername(),request.getPassword());
         if(userService.findByName(user.getUsername()).size()==0) {
             if (userService.save(user) != null) {
                 return ResponseEntity.ok(new JwtResponseModel("created user: " + user.getUsername() + " pw: " + user.getPassword()));
@@ -81,11 +81,11 @@ public class JwtController {
     }
 
     @DeleteMapping("/deleteUser")
-    public ResponseEntity<Map> deleteUser(@RequestBody User user) { // hvis man kommer hertil, er token OK
+    public ResponseEntity<Map> deleteUser(@RequestBody User2 user) { // hvis man kommer hertil, er token OK
         System.out.println("deleteUser is called with user: " + user.getUsername());
         // evt. findById, som finder hele objektet fra MySQL, inkl. id.
-        List<User> users =  userService.findByName(user.getUsername());
-        User userToDelete = users.get(0);
+        List<User2> users =  userService.findByName(user.getUsername());
+        User2 userToDelete = users.get(0);
         userService.delete(userToDelete);
         Map<String,String > map = new HashMap<>();
         map.put("message","user deleted, if found " + user.getUsername());

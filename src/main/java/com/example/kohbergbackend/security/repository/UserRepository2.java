@@ -1,11 +1,11 @@
 package com.example.kohbergbackend.security.repository;
 
-import com.example.kohbergbackend.security.model.User;
+import com.example.kohbergbackend.security.model.User2;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<User,Long> {
-    List<User> findByUsername(String name);
+public interface UserRepository2 extends JpaRepository<User2,Long> {
+    List<User2> findByUsername(String name);
     //List<User> findUserByPasswordContains(String passwordPart);
 }

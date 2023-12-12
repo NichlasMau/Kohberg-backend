@@ -31,27 +31,23 @@ public class SecurityConfiguration implements WebMvcConfigurer {
         }
         return passwordEncoder;
     }
-
-    /*
-
-    ### FIX DEPRECATED METHODS
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         System.out.println("WebSec configure(HttpSecurity) Call: 2");
+
         http.cors().and().csrf().disable()
-        .authorizeRequests()
-        .antMatchers("/signup", "/login").permitAll()
-        .anyRequest().authenticated()
-        .and()
-        .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
-        .and()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .authorizeRequests().requestMatchers("/login", "signup").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
-     */
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)

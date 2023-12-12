@@ -12,7 +12,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Entity
 @Table(name="users")
-public class User {
+public class User2 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +22,7 @@ public class User {
     @Column(name = "local_time", columnDefinition = "TIME")
     private LocalTime localTime = LocalTime.of(6,43,12);
 
-    public User(String username, String password) {
+    public User2(String username, String password) {
         this.username=username;
         this.password=password;
     }

@@ -57,7 +57,9 @@ public class InitData implements CommandLineRunner {
         // Du kan gøre noget med den oprettede kunde, hvis det er nødvendigt
         System.out.println("Oprettet kunde med ID: " + createdUser.getCustomerID());
 
-        SaleDTO newSaleDTO = new SaleDTO(1,1, LocalDate.parse("2023-01-01"), "Example Product");
+        SaleDTO newSaleDTO = new SaleDTO(1,1,
+                LocalDate.parse("2023-01-01"),
+                "Example Product");
 
         // Konverter SaleDTO til Sale ved hjælp af SaleConverter
         Sale newSale = saleConverter.toEntity(newSaleDTO);

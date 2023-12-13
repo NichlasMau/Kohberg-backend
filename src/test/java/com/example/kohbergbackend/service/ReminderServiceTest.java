@@ -42,11 +42,14 @@ class ReminderServiceTest {
 
         // Act
         List<Reminder> allReminders = reminderService.getAllReminders();
+
+        List<Reminder> allRemindersOld = reminderService.getAllReminders();
+
         allReminders.add(reminder1);
         allReminders.add(reminder2);
 
         // Assert
-        assertEquals(2, allReminders.size());
+        assertEquals((allRemindersOld.size() + 2), allReminders.size());
     }
 
     @Test

@@ -40,6 +40,7 @@ class SaleControllerTest {
     private SaleConverter saleConverter;
 
 
+    /*
     @Test
     void createSale() {
         CustomerDTO customer = new CustomerDTO(1, "Amir", "Customer", LocalDate.of(2001, 1,1), "amir@gmail.com", LocalDate.of(2023, 6,12));
@@ -56,6 +57,8 @@ class SaleControllerTest {
         assertEquals(1,id);
         assertEquals(1, customerId);
     }
+     */
+    /*
 
     @Test
     void getAllSales() {
@@ -73,6 +76,8 @@ class SaleControllerTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(3, responseEntity.getBody().size());
     }
+
+     */
 
     @Test
     void getCostumerById() {

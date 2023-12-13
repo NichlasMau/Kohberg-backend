@@ -1,5 +1,6 @@
 package com.example.kohbergbackend.security.config;
 
+
 import com.example.kohbergbackend.security.JwtAuthenticationEntryPoint;
 import com.example.kohbergbackend.security.JwtFilter;
 import lombok.AllArgsConstructor;
@@ -31,23 +32,20 @@ public class SecurityConfiguration implements WebMvcConfigurer {
         }
         return passwordEncoder;
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         System.out.println("WebSec configure(HttpSecurity) Call: 2");
-
         http.cors().and().csrf().disable()
-                .authorizeRequests().requestMatchers("/login", "signup").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-
+            .authorizeRequests().requestMatchers("/login", "/signup").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
+            .and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)

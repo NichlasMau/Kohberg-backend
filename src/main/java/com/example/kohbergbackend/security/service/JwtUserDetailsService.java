@@ -1,6 +1,6 @@
 package com.example.kohbergbackend.security.service;
 
-import com.example.kohbergbackend.security.model.User2;
+import com.example.kohbergbackend.security.model.Employee;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +24,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         // Herefter opretter man et nyt userdetails.User objekt med usr/pw fra databasen.
         // Spring Security vil herefter bruge bcrypt.compare() til at sammenligne clear-text pw fra
         // login-formular med datbasens bcrypt af pw. Hvis svaret er true, er brugeren godkendt.
-        List<User2> users = userService.findByName(username);
+        List<Employee> users = userService.findByName(username);
         System.out.println("users from database: length: " + users.size());
         if(users.size()==1) {
             System.out.println("found the user in Database: " + users.get(0).getUsername());

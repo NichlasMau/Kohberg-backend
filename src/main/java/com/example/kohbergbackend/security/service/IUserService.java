@@ -1,9 +1,9 @@
 package com.example.kohbergbackend.security.service;
 
-import com.example.kohbergbackend.security.model.User2;
+import com.example.kohbergbackend.security.model.Employee;
 
 import java.util.List;
 
-public interface IUserService extends ICrudService<User2,Long>{
-    List<User2> findByName(String name);
+public interface IUserService extends ICrudService<Employee,Long>{
+    List<Employee> findByName(String name);
 }

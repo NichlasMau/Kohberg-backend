@@ -1,28 +1,33 @@
 package com.example.kohbergbackend.security.model;
 
+
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import jakarta.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name="users")
-public class User2 {
+@Table(name="employees")
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private LocalDate hireDate;
     private String username;
     private String password;
+    private String role;
+    private LocalDate creationYear;
 
     @Column(name = "local_time", columnDefinition = "TIME")
     private LocalTime localTime = LocalTime.of(6,43,12);
 
-    public User2(String username, String password) {
+    public Employee(String username, String password) {
         this.username=username;
         this.password=password;
     }

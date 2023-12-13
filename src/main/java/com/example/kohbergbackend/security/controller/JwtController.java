@@ -1,11 +1,11 @@
 package com.example.kohbergbackend.security.controller;
 
+import com.example.kohbergbackend.security.service.JwtUserDetailsService;
 import com.example.kohbergbackend.security.JwtTokenManager;
 import com.example.kohbergbackend.security.model.JwtRequestModel;
 import com.example.kohbergbackend.security.model.JwtResponseModel;
-import com.example.kohbergbackend.security.model.User2;
+import com.example.kohbergbackend.security.model.Employee;
 import com.example.kohbergbackend.security.service.IUserService;
-import com.example.kohbergbackend.security.service.JwtUserDetailsService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +37,7 @@ public class JwtController {
     @PostMapping("/signup")
     public ResponseEntity<JwtResponseModel> signup(@RequestBody JwtRequestModel request){
         System.out.println("signup: username:" + request.getUsername() + " password: " + request.getPassword() );
-        User2 user = new User2(request.getUsername(),request.getPassword());
+        Employee user = new Employee(request.getUsername(),request.getPassword());
         if(userService.findByName(user.getUsername()).size()==0) {
             if (userService.save(user) != null) {
                 return ResponseEntity.ok(new JwtResponseModel("created user: " + user.getUsername() + " pw: " + user.getPassword()));
@@ -81,11 +78,11 @@ public class JwtController {
     }
 
     @DeleteMapping("/deleteUser")
-    public ResponseEntity<Map> deleteUser(@RequestBody User2 user) { // hvis man kommer hertil, er token OK
+    public ResponseEntity<Map> deleteUser(@RequestBody Employee user) { // hvis man kommer hertil, er token OK
         System.out.println("deleteUser is called with user: " + user.getUsername());
         // evt. findById, som finder hele objektet fra MySQL, inkl. id.
-        List<User2> users =  userService.findByName(user.getUsername());
-        User2 userToDelete = users.get(0);
+        List<Employee> users =  userService.findByName(user.getUsername());
+        Employee userToDelete = users.get(0);
         userService.delete(userToDelete);
         Map<String,String > map = new HashMap<>();
         map.put("message","user deleted, if found " + user.getUsername());

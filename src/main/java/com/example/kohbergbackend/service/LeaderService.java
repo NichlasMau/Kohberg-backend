@@ -3,7 +3,9 @@ package com.example.kohbergbackend.service;
 import com.example.kohbergbackend.exception.NotFoundException;
 import com.example.kohbergbackend.model.Leader;
 import com.example.kohbergbackend.repository.LeaderRepository;
+import com.example.kohbergbackend.security.config.SecurityConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +26,19 @@ public class LeaderService {
 
     public List<Leader> getAllLeaders() {
         return leaderRepository.findAll();
+    }
+
+    public List<Leader> findByEmail(String email) {
+        System.out.println("leaderservice called findbyemail with arg: " + email);
+        return leaderRepository.findAllByEmail(email);
+    }
+
+    public Leader save(Leader leader) {
+//        if(user.getPassword() == null) {
+        PasswordEncoder pw = SecurityConfiguration.passwordEncoder();
+        leader.setPassword(pw.encode(leader.getPassword()));
+//        }
+        return leaderRepository.save(leader);
     }
 
     public Optional<Leader> getLeaderById(int leaderId) {

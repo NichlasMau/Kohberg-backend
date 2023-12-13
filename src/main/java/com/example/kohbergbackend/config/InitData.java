@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.List;
 
+/*
 @Component
 public class InitData implements CommandLineRunner {
 
@@ -89,3 +90,5 @@ public class InitData implements CommandLineRunner {
         System.out.println("Oprettet Salesperson med ID: " + createdSalesperson.id());
     }
 }
+
+ */

@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin
 public class ProductController {
 
     @GetMapping("/products")

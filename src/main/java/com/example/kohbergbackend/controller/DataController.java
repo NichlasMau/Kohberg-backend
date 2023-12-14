@@ -21,10 +21,16 @@ public class DataController {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> responseData = new HashMap<>();
 
-        try (InputStream inputStream = new ClassPathResource("data.json").getInputStream()) {
+        try {
+            Resource resource = new ClassPathResource("data.json");
+            InputStream inputStream = resource.getInputStream();
+
             // Read the JSON data from the InputStream
             Map<?, ?> jsonData = objectMapper.readValue(inputStream, Map.class);
             responseData.put("data", jsonData);
+
+            // Close the InputStream after reading
+            inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
             responseData.put("error", "Error occurred while reading JSON file");
